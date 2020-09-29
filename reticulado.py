@@ -55,11 +55,21 @@ class Reticulado(object):
         """Agrega una restriccion, dado el nodo, grado de libertad y valor 
         del desplazamiento de dicho grado de libertad
         """
+        if nodo not in self.restricciones:
+            self.restricciones[nodo] = [[gdl, valor]]
+            
+        else: 
+            self.restricciones[nodo].append([gdl, valor])
             
     def agregar_fuerza(self, nodo, gdl, valor):
         """Agrega una restriccion, dado el nodo, grado de libertad y valor 
         del la fuerza en la direccion de dicho GDL
         """
+        if nodo not in self.cargas:
+            self.cargas[nodo] = [[gdl, valor]]
+            
+        else: 
+            self.cargas[nodo].append([gdl, valor])
         #Implementar
 
     def ensamblar_sistema(self):
