@@ -2,7 +2,6 @@
 """
 Created on Sat Sep 26 13:00:50 2020
 
-@author: Ale
 """
 
 import numpy as np
@@ -70,12 +69,18 @@ class Reticulado(object):
             
         else: 
             self.cargas[nodo].append([gdl, valor])
-        #Implementar
+      
 
     def ensamblar_sistema(self):
         """Ensambla el sistema de ecuaciones"""
-
-        #Implementar
+        Ndimensiones = 2
+        Ngdl = self.Nnodos * Ndimensiones
+        self.k = np.zeros((Ngdl,Ngdl), dtype=np.double)
+        
+		for b in self.barra:
+            ke = b.obtener_rigidez(self)
+            fe = b.obtener_vector_de_cargas(self)
+       
 
     def resolver_sistema(self):
         """Resuelve el sistema de ecuaciones.
