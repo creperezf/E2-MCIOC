@@ -77,11 +77,11 @@ class Reticulado(object):
         Ngdl = self.Nnodos * Ndimensiones
         self.k = np.zeros((Ngdl,Ngdl), dtype=np.double)
         
-		for b in self.barra:
+	for b in self.barra:
             ke = b.obtener_rigidez(self)
             fe = b.obtener_vector_de_cargas(self)
-       
-
+	    K[p,q] = ke [i,j]
+	
     def resolver_sistema(self):
         """Resuelve el sistema de ecuaciones.
         La solucion queda guardada en self.u
