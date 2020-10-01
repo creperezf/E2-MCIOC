@@ -72,15 +72,28 @@ class Reticulado(object):
       
 
     def ensamblar_sistema(self):
-        """Ensambla el sistema de ecuaciones"""
-        Ndimensiones = 2
-        Ngdl = self.Nnodos * Ndimensiones
-        self.k = np.zeros((Ngdl,Ngdl), dtype=np.double)
-        
-	for b in self.barra:
-            ke = b.obtener_rigidez(self)
-            fe = b.obtener_vector_de_cargas(self)
-	    K[p,q] = ke [i,j]
+	#metodo de rigidez directa
+	Ndimensiones = 2
+	Ngdl = self.Nnodos + Ndimensiones
+	#iterar sobre las barras:
+	self.K = np.zeros((Ngdl,Ngdl), dtype = np.double)
+	self.f = np.zeros((Ngdl), dtype = np.double)
+	self.u = np.zeros((Ngdl), dtype = np.double)
+
+	for b in self.barras:
+		ke = b.obtener_rigidez(self)
+		fe = b.obtener_vector_de_cargas(self)
+		
+	#terminar
+		d = [2*b.ni, 2*b.ni+1, 2*b.nj, 2*b.nj+1]
+
+		for i in range(len(d)):
+			p = d[i]
+			for j in range(len(d)):
+				q = d[j]
+				self.K[p][q] += ke[i][j]
+			self.f[p] += fe[i]
+	return 
 	
     def resolver_sistema(self):
         """Resuelve el sistema de ecuaciones.
